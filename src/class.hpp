@@ -7,21 +7,42 @@
 class player {
 private:
     int score;
-    std::array<card, 4> hand;
+    std::array<card*, 4> hand;
 public:
+    bool init();
+    bool supr();
     int get_score();
-    card modif_hand(int i, card c);
+    card* modif_hand(int i, card* c);
 };
 
 
 class game {
 private:
-    std::queue<card> pile;
+    pile* p;
+    std::vector<player*> j;
 public:
-    card draw();
-    void discard(card c);
+    bool init();
+    bool supr();
+    void add_player();
+    bool running;
 };
 
+
+class pile {
+private:
+    std::queue<card> data;
+public:
+    bool init();
+    bool supr();
+    card* draw();
+    void discard(card* c);
+};
+
+
 class card {
-    int type;
+    private:
+        int type;
+    public:
+        bool init(int t);
+        bool supr();
 };
