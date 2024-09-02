@@ -3,15 +3,18 @@
 
 bool player::init() {
     this->score = 0;
-    std::array<card*, 4>;
+    std::array<card*, 4> h;
+    this->hand = h;
 }
 
 bool player::supr() {
-
+    for(int i{0}; i<4; i++) {
+        this->hand[i]->supr();
+    }
 }
 
 int player::get_score() {
-    return score;
+    return this->score;
 }
 
 card* player::modif_hand(int i, card* c) {
@@ -23,13 +26,10 @@ card* player::modif_hand(int i, card* c) {
 
 bool game::start() {
     this->running = true;
-    std::vector<player*> j;
+    std::vector<player*> joueurs;
+    this->j = joueurs;
     pile* p = new pile;
     return p->init();
-}
-
-card game::draw() {
-
 }
 
 bool game::supr() {
@@ -40,6 +40,11 @@ bool game::supr() {
 void game::add_player() {
     player* p;
     p->init();
+    j.push_back(p);
+}
+
+bool game::is_running() {
+    return running;
 }
 
 
@@ -57,10 +62,6 @@ card* pile::draw() {
 
 void pile::discard(card* c) {
 
-}
-
-bool game::is_running() {
-    return running;
 }
 
 bool card::init(int t) {

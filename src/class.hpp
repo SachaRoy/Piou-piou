@@ -4,6 +4,26 @@
 #include <queue>
 
 
+class card {
+private:
+    int type;
+public:
+    bool init(int t);
+    bool supr();
+};
+
+
+class pile {
+private:
+    std::queue<card> data;
+public:
+    bool init();
+    bool supr();
+    card* draw();
+    void discard(card* c);
+};
+
+
 class player {
 private:
     int score;
@@ -22,30 +42,8 @@ private:
     bool running;
 public:
     bool start();
-    card draw();
-    void discard(card c);
     bool is_running();
     std::vector<player*> j;
     bool supr();
     void add_player();
-};
-
-
-class pile {
-private:
-    std::queue<card> data;
-public:
-    bool init();
-    bool supr();
-    card* draw();
-    void discard(card* c);
-};
-
-
-class card {
-    private:
-        int type;
-    public:
-        bool init(int t);
-        bool supr();
 };
