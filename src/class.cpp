@@ -11,10 +11,18 @@ card player::modif_hand(int i, card c) {
 }
 
 
+bool game::start() {
+
+}
+
 card game::draw() {
     
 }
 
 void game::discard(card c) {
 
+}
+
+bool game::is_running() {
+    return running;
 }

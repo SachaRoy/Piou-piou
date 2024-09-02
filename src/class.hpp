@@ -17,9 +17,12 @@ public:
 class game {
 private:
     std::queue<card> pile;
+    bool running;
 public:
+    bool start();
     card draw();
     void discard(card c);
+    bool is_running();
 };
 
 class card {
