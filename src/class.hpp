@@ -42,8 +42,9 @@ private:
     bool running;
 public:
     bool start();
+    bool supr();
     bool is_running();
     std::vector<player*> j;
-    bool supr();
+    bool fill_hands();
     void add_player();
 };

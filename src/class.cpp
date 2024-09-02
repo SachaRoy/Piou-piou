@@ -11,6 +11,8 @@ bool player::supr() {
     for(int i{0}; i<4; i++) {
         this->hand[i]->supr();
     }
+    delete this;
+    return true;
 }
 
 int player::get_score() {
@@ -37,14 +39,18 @@ bool game::supr() {
     return this->p->supr();
 }
 
+bool game::is_running() {
+    return this->running;
+}
+
+bool game::fill_hands() {
+
+}
+
 void game::add_player() {
     player* p;
     p->init();
-    j.push_back(p);
-}
-
-bool game::is_running() {
-    return running;
+    this->j.push_back(p);
 }
 
 
