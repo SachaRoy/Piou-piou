@@ -28,10 +28,12 @@ class player {
 private:
     int score;
     std::array<card*, 4> hand;
+    std::string name;
 public:
-    bool init();
+    bool init(std::string name);
     bool supr();
     int get_score();
+    std::string get_name();
     card* modif_hand(int i, card* c);
 };
 
@@ -42,9 +44,10 @@ private:
     bool running;
 public:
     bool start();
-    bool supr();
+    bool finish();
     bool is_running();
+    int nb_player;
     std::vector<player*> j;
     bool fill_hands();
-    void add_player();
+    void add_player(std::string name);
 };

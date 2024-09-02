@@ -17,6 +17,22 @@ void print_rules() {
     std::cout << "Voici les règles:" << std::endl;
 }
 
+void running_game() {
+    game* partie = new game;
+    partie->start();
+
+    int nb_joueur;
+    std::cout << "Combien de joueurs ? ";
+    std::cin >> nb_joueur;
+
+    std::string temp_name;
+    for(int i{0}; i<nb_joueur; i++) {
+        std::cout << "Nom du joueur " << i+1 << ": ";
+        std::cin >> temp_name;
+        partie->add_player(temp_name);
+    }
+}
+
 
 int main() {
     bool boucle = true;
@@ -43,13 +59,9 @@ int main() {
         }
 
         if(start_game) {
-            game partie;
-            partie.start();
-
-
-        }
+            running_game();
+        }        
     }
-
 
     return 0;
 }

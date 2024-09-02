@@ -1,10 +1,11 @@
 #include "class.hpp"
 
 
-bool player::init() {
+bool player::init(std::string name) {
     this->score = 0;
     std::array<card*, 4> h;
     this->hand = h;
+    this->name = name;
 }
 
 bool player::supr() {
@@ -19,6 +20,10 @@ int player::get_score() {
     return this->score;
 }
 
+std::string player::get_name() {
+    return this->name;
+}
+
 card* player::modif_hand(int i, card* c) {
     card* temp = this->hand[i];
     this->hand[i] = c;
@@ -28,13 +33,14 @@ card* player::modif_hand(int i, card* c) {
 
 bool game::start() {
     this->running = true;
+    this->nb_player = 0;
     std::vector<player*> joueurs;
     this->j = joueurs;
     pile* p = new pile;
     return p->init();
 }
 
-bool game::supr() {
+bool game::finish() {
     this->running = false;
     return this->p->supr();
 }
@@ -47,10 +53,11 @@ bool game::fill_hands() {
 
 }
 
-void game::add_player() {
+void game::add_player(std::string name) {
     player* p;
-    p->init();
+    p->init(name);
     this->j.push_back(p);
+    this->nb_player++;
 }
 
 
