@@ -4,13 +4,18 @@
 bool player::init(std::string name) {
     this->score = 0;
     std::array<card*, 4> h;
+    for(int i{0}; i<4; i++) {
+        h[i] = nullptr;
+    }
     this->hand = h;
     this->name = name;
 }
 
 bool player::supr() {
     for(int i{0}; i<4; i++) {
-        this->hand[i]->supr();
+        if(this->hand[i] != nullptr) {
+            this->hand[i]->supr();
+        }
     }
     delete this;
     return true;
@@ -22,6 +27,14 @@ int player::get_score() {
 
 std::string player::get_name() {
     return this->name;
+}
+
+void player::aff_hand() {
+
+}
+
+void player::fill_hand(pile* p) {
+    
 }
 
 card* player::modif_hand(int i, card* c) {
@@ -50,7 +63,9 @@ bool game::is_running() {
 }
 
 bool game::fill_hands() {
-
+    for(int i{0}; i<this->nb_player; i++) {
+        (this->j)[i]->fill_hand(this->p);
+    }
 }
 
 void game::add_player(std::string name) {
@@ -62,7 +77,26 @@ void game::add_player(std::string name) {
 
 
 bool pile::init() {
-
+    std::queue<card*> temp;
+    int nb_rand;
+    for(int i{0}; i<50; i++) {
+        card* temp_card = new card;
+        nb_rand = rand()%31;
+        if(nb_rand<10) {
+            temp_card->init(0);
+        }
+        else if(nb_rand<20) {
+            temp_card->init(1);
+        }
+        else if(nb_rand<27) {
+            temp_card->init(2);
+        }
+        else {
+            temp_card->init(3);
+        }
+        temp.push(temp_card);
+    }
+    return true;
 }
 
 bool pile::supr() {

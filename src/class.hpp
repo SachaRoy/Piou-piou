@@ -15,7 +15,7 @@ public:
 
 class pile {
 private:
-    std::queue<card> data;
+    std::queue<card*> data;
 public:
     bool init();
     bool supr();
@@ -34,6 +34,8 @@ public:
     bool supr();
     int get_score();
     std::string get_name();
+    void aff_hand();
+    void fill_hand(pile* p);
     card* modif_hand(int i, card* c);
 };
 

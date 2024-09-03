@@ -19,17 +19,18 @@ void print_rules() {
 
 void running_game() {
     game* partie = new game;
-    partie->start();
+    if(partie->start()) {
+        int nb_joueur;
+        std::cout << "Combien de joueurs ? ";
+        std::cin >> nb_joueur;
 
-    int nb_joueur;
-    std::cout << "Combien de joueurs ? ";
-    std::cin >> nb_joueur;
-
-    std::string temp_name;
-    for(int i{0}; i<nb_joueur; i++) {
-        std::cout << "Nom du joueur " << i+1 << ": ";
-        std::cin >> temp_name;
-        partie->add_player(temp_name);
+        std::string temp_name;
+        for(int i{0}; i<nb_joueur; i++) {
+            std::cout << "Nom du joueur " << i+1 << ": ";
+            std::cin >> temp_name;
+            partie->add_player(temp_name);
+        }
+        partie->fill_hands();
     }
 }
 
