@@ -30,11 +30,15 @@ std::string player::get_name() {
 }
 
 void player::aff_hand() {
-
+    for(int i{0}; i<4; i++) {
+        this->hand[i]
+    }
 }
 
 void player::fill_hand(pile* p) {
-    
+    for(int i{0}; i<4; i++) {
+        this->hand[i] = p->draw();
+    }
 }
 
 card* player::modif_hand(int i, card* c) {
@@ -104,11 +108,13 @@ bool pile::supr() {
 }
 
 card* pile::draw() {
-    
+    card* temp = this->data.front();
+    this->data.pop();
+    return temp; 
 }
 
 void pile::discard(card* c) {
-
+    this->data.push(c);
 }
 
 bool card::init(int t) {
