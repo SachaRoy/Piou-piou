@@ -1,86 +1,24 @@
 #include "class.hpp"
 
 
-bool player::init(std::string name) {
-    this->score = 0;
-    std::array<card*, 4> h;
-    for(int i{0}; i<4; i++) {
-        h[i] = nullptr;
-    }
-    this->hand = h;
-    this->name = name;
+
+// ##### Méthode de 'card' #####
+void card::init(int t) {
+    this->type = t;
 }
 
-bool player::supr() {
-    for(int i{0}; i<4; i++) {
-        if(this->hand[i] != nullptr) {
-            this->hand[i]->supr();
-        }
-    }
+void card::supr() {
     delete this;
-    return true;
 }
 
-int player::get_score() {
-    return this->score;
-}
-
-std::string player::get_name() {
-    return this->name;
-}
-
-void player::aff_hand() {
-    for(int i{0}; i<4; i++) {
-        this->hand[i]
-    }
-}
-
-void player::fill_hand(pile* p) {
-    for(int i{0}; i<4; i++) {
-        this->hand[i] = p->draw();
-    }
-}
-
-card* player::modif_hand(int i, card* c) {
-    card* temp = this->hand[i];
-    this->hand[i] = c;
-    return temp;
+int card::get_type() {
+    return this->type;
 }
 
 
-bool game::start() {
-    this->running = true;
-    this->nb_player = 0;
-    std::vector<player*> joueurs;
-    this->j = joueurs;
-    pile* p = new pile;
-    return p->init();
-}
 
-bool game::finish() {
-    this->running = false;
-    return this->p->supr();
-}
-
-bool game::is_running() {
-    return this->running;
-}
-
-bool game::fill_hands() {
-    for(int i{0}; i<this->nb_player; i++) {
-        (this->j)[i]->fill_hand(this->p);
-    }
-}
-
-void game::add_player(std::string name) {
-    player* p;
-    p->init(name);
-    this->j.push_back(p);
-    this->nb_player++;
-}
-
-
-bool pile::init() {
+// ##### Méthode de 'pile' #####
+void pile::init() {
     std::queue<card*> temp;
     int nb_rand;
     for(int i{0}; i<50; i++) {
@@ -100,11 +38,21 @@ bool pile::init() {
         }
         temp.push(temp_card);
     }
-    return true;
+    this->data = temp;
 }
 
-bool pile::supr() {
+void pile::supr() {
+    card* temp_c;
+    for(int i{0}; i<50; i++) {
+        try {
+            temp_c = this->data.front();
+            this->data.pop();
+            temp_c->supr();
+        }
+        catch() {
 
+        }
+    }
 }
 
 card* pile::draw() {
@@ -117,12 +65,123 @@ void pile::discard(card* c) {
     this->data.push(c);
 }
 
-bool card::init(int t) {
-    this->type = t;
-    return true;
+
+
+// ##### Méthode de 'player' #####
+void player::init(std::string name) {
+    this->score = 0;
+    std::array<card*, 4> h;
+    for(int i{0}; i<4; i++) {
+        h[i] = nullptr;
+    }
+    this->hand = h;
+    this->name = name;
 }
 
-bool card::supr() {
+void player::supr() {
+    for(int i{0}; i<4; i++) {
+        if(this->hand[i] != nullptr) {
+            this->hand[i]->supr();
+        }
+    }
     delete this;
-    return true;
+}
+
+int player::get_score() {
+    return this->score;
+}
+
+int player::get_oeufs() {
+    return this->oeufs;
+}
+
+std::string player::get_name() {
+    return this->name;
+}
+
+void player::aff_hand() {
+    int temp;
+    std::string l1, l2, l3, l4, l5 = "";
+    for(int i{0}; i<4; i++) {
+        temp = this->hand[i]->get_type();
+        if(temp == 0) {
+            l1 += " |◠◠◕◕◕◠| ";
+            l2 += " |◠◕◠◠◠◠| ";
+            l3 += " |◠◕◠◠◠◠| ";
+            l4 += " |◠◕◠◠◠◠| ";
+            l5 += " |◠◠◕◕◕◠| ";
+        }
+        else if(temp == 1) {
+            l1 += " |◠◕◕◕◠◠| ";
+            l2 += " |◠◕◠◠◕◠| ";
+            l3 += " |◠◕◕◕◠◠| ";
+            l4 += " |◠◕◠◠◠◠| ";
+            l5 += " |◠◕◠◠◠◠| ";
+        }
+        else if(temp == 2) {
+            l1 += " |◠◕◠◠◕◠| ";
+            l2 += " |◠◕◕◠◕◠| ";
+            l3 += " |◠◕◠◕◕◠| ";
+            l4 += " |◠◕◠◠◕◠| ";
+            l5 += " |◠◕◠◠◕◠| ";
+        }
+        else {
+            l1 += " |◠◕◕◕◠◠| ";
+            l2 += " |◠◕◠◠◕◠| ";
+            l3 += " |◠◕◕◕◠◠| ";
+            l4 += " |◠◕◠◠◕◠| ";
+            l5 += " |◠◕◠◠◕◠| ";
+        }
+    }
+    std::cout << "  ______    ______    ______    ______\n" << l1 << "\n" << l2 << "\n" << l3 << "\n" << l4 << "\n" << l5 << "\n  ______    ______    ______    ______" << std::endl;
+}
+
+void player::fill_hand(pile* p) {
+    for(int i{0}; i<4; i++) {
+        this->hand[i] = p->draw();
+    }
+}
+
+card* player::modif_hand(int i, card* c) {
+    card* temp = this->hand[i];
+    this->hand[i] = c;
+    return temp;
+}
+
+
+
+// ##### Méthode de 'game' #####
+void game::start() {
+    this->running = true;
+    this->nb_player = 0;
+    std::vector<player*> joueurs;
+    this->j = joueurs;
+    pile* temp_p = new pile;
+    temp_p->init();
+    this->p = temp_p;
+}
+
+void game::finish() {
+    this->running = false;
+    for(int i{0}; i<this->nb_player; i++) {
+        this->j[i]->supr();
+    }
+    this->p->supr();
+}
+
+bool game::is_running() {
+    return this->running;
+}
+
+void game::fill_hands() {
+    for(int i{0}; i<this->nb_player; i++) {
+        this->j[i]->fill_hand(this->p);
+    }
+}
+
+void game::add_player(std::string name) {
+    player* p = new player;
+    p->init(name);
+    this->j.push_back(p);
+    this->nb_player++;
 }

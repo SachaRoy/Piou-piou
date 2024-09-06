@@ -6,7 +6,7 @@ class.o : class.cpp
 main.o : main.cpp
 	g++ $(FLAGS) main.cpp -c -o main.o
 
-prog.out : structures.o main.o algorithme.o
+prog.out : main.o class.o
 	g++ $(FLAGS) main.o class.o -o prog.out
 
 clean:

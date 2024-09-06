@@ -18,29 +18,52 @@ void print_rules() {
 }
 
 void running_game() {
+    system("clear");
     game* partie = new game;
-    if(partie->start()) {
-        int nb_joueur;
-        std::cout << "Combien de joueurs ? ";
-        std::cin >> nb_joueur;
+    partie->start();
 
-        std::string temp_name;
-        for(int i{0}; i<nb_joueur; i++) {
-            std::cout << "Nom du joueur " << i+1 << ": ";
-            std::cin >> temp_name;
-            partie->add_player(temp_name);
-        }
-        partie->fill_hands();
+    int nb_joueur = 0;
+    while(nb_joueur > 7 || nb_joueur < 3) {
+        std::cout << "Combien de joueurs ? (max. 7) ";
+        std::cin >> nb_joueur;
     }
+
+    std::string temp_name;
+    for(int i{0}; i<nb_joueur; i++) {
+        std::cout << "Nom du joueur " << i+1 << ": ";
+        std::cin >> temp_name;
+        partie->add_player(temp_name);
+    }
+    partie->fill_hands();
+
+    std::string winner = "";
+    player* temp_j;
+    std::string temp_name;
+    int tour = 0;
+    while(winner == "") {
+        temp_j = partie->j[tour];
+        temp_name = temp_j->get_name();
+        std::cout << "Tour de " << temp_name << std::endl;
+
+        if(temp_j->get_score() > 2) {
+            winner = temp_name;
+        }
+        tour = (tour+1)%nb_joueur;
+    }
+    std::cout << "Le gagnant est " << winner << "." << std::endl;
+
+    
 }
 
 
 int main() {
     bool boucle = true;
-    bool start_game = false;
+    bool start_game;
     char input_usr;
 
     while(boucle) {
+        start_game = false;
+        system("clear");
         title_screen();
         std::cin >> input_usr;
         
@@ -52,6 +75,7 @@ int main() {
                 print_rules();
                 break;
             case '3':
+                system("clear");
                 boucle = false;
                 break;
             default:

@@ -8,8 +8,9 @@ class card {
 private:
     int type;
 public:
-    bool init(int t);
-    bool supr();
+    void init(int t);
+    void supr();
+    int get_type();
 };
 
 
@@ -17,8 +18,8 @@ class pile {
 private:
     std::queue<card*> data;
 public:
-    bool init();
-    bool supr();
+    void init();
+    void supr();
     card* draw();
     void discard(card* c);
 };
@@ -27,12 +28,14 @@ public:
 class player {
 private:
     int score;
+    int oeufs;
     std::array<card*, 4> hand;
     std::string name;
 public:
-    bool init(std::string name);
-    bool supr();
+    void init(std::string name);
+    void supr();
     int get_score();
+    int get_oeufs();
     std::string get_name();
     void aff_hand();
     void fill_hand(pile* p);
@@ -45,11 +48,11 @@ private:
     pile* p;
     bool running;
 public:
-    bool start();
-    bool finish();
+    void start();
+    void finish();
     bool is_running();
     int nb_player;
     std::vector<player*> j;
-    bool fill_hands();
+    void fill_hands();
     void add_player(std::string name);
 };
