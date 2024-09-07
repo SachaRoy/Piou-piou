@@ -41,17 +41,12 @@ void pile::init() {
     this->data = temp;
 }
 
-void pile::supr() {
+void pile::supr(int nb_player) {
     card* temp_c;
-    for(int i{0}; i<50; i++) {
-        try {
-            temp_c = this->data.front();
-            this->data.pop();
-            temp_c->supr();
-        }
-        catch() {
-
-        }
+    for(int i{0}; i<50-(4*nb_player); i++) {
+        temp_c = this->data.front();
+        this->data.pop();
+        temp_c->supr();
     }
 }
 
@@ -97,6 +92,10 @@ int player::get_oeufs() {
 
 std::string player::get_name() {
     return this->name;
+}
+
+std::array<card*, 4> player::get_hand() {
+    return this->hand;
 }
 
 void player::aff_hand() {
@@ -166,7 +165,7 @@ void game::finish() {
     for(int i{0}; i<this->nb_player; i++) {
         this->j[i]->supr();
     }
-    this->p->supr();
+    this->p->supr(this->nb_player);
 }
 
 bool game::is_running() {

@@ -17,6 +17,26 @@ void print_rules() {
     std::cout << "Voici les règles:" << std::endl;
 }
 
+void print_choice(std::string code) {
+    std::cout << "1) Défausser une carte" << std::endl;
+    if(code[0] == '1') {
+        std::cout << "O) Pondre un oeuf" << std::endl;
+    }
+    if(code[1] == '1') {
+        std::cout << "P) Faire éclore un oeuf" << std::endl;
+    }
+    if(code[2] == '1') {
+        std::cout << "N) Construire un nid" << std::endl;
+    }
+    if(code[3] == '1') {
+        std::cout << "V) Voler un oeuf" << std::endl;
+    }
+}
+
+std::string make_code(std::array<card*, 4> h) {
+    
+}
+
 void running_game() {
     system("clear");
     game* partie = new game;
@@ -39,11 +59,16 @@ void running_game() {
     std::string winner = "";
     player* temp_j;
     std::string temp_name;
+    std::string code = "0000";
+
     int tour = 0;
     while(winner == "") {
         temp_j = partie->j[tour];
         temp_name = temp_j->get_name();
+        code = make_code(temp_j->get_hand());
         std::cout << "Tour de " << temp_name << std::endl;
+        temp_j->aff_hand();
+
 
         if(temp_j->get_score() > 2) {
             winner = temp_name;

@@ -19,7 +19,7 @@ private:
     std::queue<card*> data;
 public:
     void init();
-    void supr();
+    void supr(int nb_player);
     card* draw();
     void discard(card* c);
 };
@@ -37,6 +37,7 @@ public:
     int get_score();
     int get_oeufs();
     std::string get_name();
+    std::array<card*, 4> get_hand();
     void aff_hand();
     void fill_hand(pile* p);
     card* modif_hand(int i, card* c);
